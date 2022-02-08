@@ -1,7 +1,7 @@
 <template>
   <CRow>
     <CCol :md="12">
-      <CButton component="a" color="primary" href="#" role="button">Adicionar Novo</CButton>
+      <CButton component="a" color="primary" href="#" role="button">adicionar Novo</CButton>
       <CCard class="mb-4 mt-2">
         <CCardBody>
           <CTable hover>
