@@ -13,8 +13,8 @@ export default [
   },
   {
     component: 'CNavItem',
-    name: 'Membros',
-    to: 'membros',
+    name: 'Usuarios',
+    to: 'usuarios',
     icon: 'cil-user',
   },
   // {

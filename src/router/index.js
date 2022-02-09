@@ -25,9 +25,9 @@ const routes = [
         component: () => import('@/views/Livros.vue'),
       },
       {
-        path: '/membros',
-        name: 'Membros',
-        component: () => import('@/views/Membros.vue'),
+        path: '/usuarios',
+        name: 'Usuarios',
+        component: () => import('@/views/Usuarios.vue'),
       },
       {
         path: '/theme/typography',

@@ -1,7 +1,7 @@
 <template>
   <CRow>
     <CCol :md="12">
-      <CButton component="a" color="primary" href="#" role="button">Adicionar Novo</CButton>
+      <CButton component="a" color="primary" role="button" @click="() => { modalAdicionar = true }">Adicionar Novo</CButton>
       <CCard class="mb-4 mt-2">
         <CCardBody>
           <CTable hover>
@@ -50,9 +50,33 @@
         </CCardBody>
       </CCard>
     </CCol>
-    <!-- VER SE FUNCIONA O MODAL -->
-    <CModal>
 
-    </CModal>
+    <ModalAdicionarLivro :dadosInputs="livro" :abrirModal="modalAdicionar" @fecharModal="fecharModal"/>
   </CRow>
 </template>
+
+<script>
+import ModalAdicionarLivro from '@/components/Modals/ModalAdicionarLivro.vue';
+
+export default {
+  components: {ModalAdicionarLivro},
+  data() {
+    return { 
+      modalAdicionar: false,
+      livro: {
+        nome: '',
+        autor: '',
+        ano: '',
+        localizacao: '',
+        quantidade: 0
+      }
+    }
+  },
+  methods: {
+    fecharModal(event) {
+      this.modalAdicionar = event;
+    }
+  }
+  }
+</script>
+
