@@ -1,7 +1,7 @@
 <template>
   <CModal size="lg" :visible="abrirModal" @close="() => { $emit('fecharModal', false)}">
     <CModalHeader>
-      <CModalTitle>Novo Livro</CModalTitle>
+      <CModalTitle>{{tituloModal}}</CModalTitle>
     </CModalHeader>
     <CModalBody>
       <CForm class="row g-3 needs-validation">
@@ -24,14 +24,14 @@
           <CFormLabel for="localizacao">Localização *</CFormLabel>
           <CFormSelect id="localizacao" required v-model="dadosInputs.localizacao" :invalid="dadosInputs.localizacao == 0" :valid="dadosInputs.localizacao != 0">
             <option value="0" selected>Escolha...</option>
-            <option>Prateleira 1</option>
-            <option>Prateleira 2</option>
-            <option>Prateleira 3</option>
-            <option>Prateleira 4</option>
-            <option>Prateleira 5</option>
-            <option>Prateleira 6</option>
-            <option>Prateleira 7</option>
-            <option>Prateleira 8</option>
+            <option value="1">Prateleira 1</option>
+            <option value="2">Prateleira 2</option>
+            <option value="3">Prateleira 3</option>
+            <option value="4">Prateleira 4</option>
+            <option value="5">Prateleira 5</option>
+            <option value="6">Prateleira 6</option>
+            <option value="7">Prateleira 7</option>
+            <option value="8">Prateleira 8</option>
           </CFormSelect>
           <CFormFeedback invalid>Selecione uma localização</CFormFeedback>
         </CCol>
@@ -46,22 +46,30 @@
       <CButton color="secondary" @click="() => {$emit('fecharModal', false)}">
         Cancelar
       </CButton>
-      <CButton color="primary">Salvar</CButton>
+      <CButton color="primary" @click="salvar">Salvar</CButton>
     </CModalFooter>
   </CModal>
 </template>
 
 <script>
 export default {
-  emits: ["fecharModal"],
+  emits: ["fecharModal", "salvar"],
   props: {
       abrirModal: {
         type: Boolean
       },
       dadosInputs: { 
         type: Object
+      },
+      tituloModal: {
+        type: String
       }
+  },
+  methods: {
+    salvar() {
+      this.$emit('salvar', this.dadosInputs)
     }
+  }
 }
 </script>
 

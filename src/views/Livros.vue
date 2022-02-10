@@ -21,8 +21,8 @@
                 <CTableDataCell>CPB</CTableDataCell>
                 <CTableDataCell>2016</CTableDataCell>
                 <CTableDataCell>
-                  <CButton component="a" color="secondary" href="#" role="button" class="m-1">Editar</CButton>
-                  <CButton component="a" color="danger" href="#" role="button">Excluir</CButton>
+                  <CButton component="a" color="secondary" role="button" class="m-1" @click="() => { modalEditar = true }">Editar</CButton>
+                  <CButton component="a" color="danger" role="button" @click="() => { modalExcluir = true }">Excluir</CButton>
                 </CTableDataCell>
               </CTableRow>
               <CTableRow>
@@ -31,8 +31,8 @@
                 <CTableDataCell>CPB</CTableDataCell>
                 <CTableDataCell>2016</CTableDataCell>
                 <CTableDataCell>
-                  <CButton component="a" color="secondary" href="#" role="button" class="m-1">Editar</CButton>
-                  <CButton component="a" color="danger" href="#" role="button">Excluir</CButton>
+                  <CButton component="a" color="secondary" role="button" class="m-1" @click="() => { modalEditar = true }">Editar</CButton>
+                  <CButton component="a" color="danger" role="button" @click="() => { modalExcluir = true }">Excluir</CButton>
                 </CTableDataCell>
               </CTableRow>
               <CTableRow>
@@ -41,8 +41,8 @@
                 <CTableDataCell>CPB</CTableDataCell>
                 <CTableDataCell>2016</CTableDataCell>
                 <CTableDataCell>
-                  <CButton component="a" color="secondary" href="#" role="button" class="m-1">Editar</CButton>
-                  <CButton component="a" color="danger" href="#" role="button">Excluir</CButton>
+                  <CButton component="a" color="secondary" role="button" class="m-1" @click="() => { modalEditar = true }">Editar</CButton>
+                  <CButton component="a" color="danger" role="button" @click="() => { modalExcluir = true }">Excluir</CButton>
                 </CTableDataCell>
               </CTableRow>
             </CTableBody>
@@ -51,18 +51,23 @@
       </CCard>
     </CCol>
 
-    <ModalAdicionarLivro :dadosInputs="livro" :abrirModal="modalAdicionar" @fecharModal="fecharModal"/>
+    <ModalAdicionarEditarLivro :tituloModal="'Adicionar Livro'" :dadosInputs="livro" :abrirModal="modalAdicionar" @fecharModal="fecharModalAdicionarEditar" @salvar="criarLivro"/>
+    <ModalAdicionarEditarLivro :tituloModal="'Editar Livro'" :dadosInputs="livro" :abrirModal="modalEditar" @fecharModal="fecharModalAdicionarEditar"/>
+    <ModalExclusao :tituloModal="'Editar Livro'" :abrirModal="modalExcluir" @fecharModal="fecharModalAdicionarEditar"/>
   </CRow>
 </template>
 
 <script>
-import ModalAdicionarLivro from '@/components/Modals/ModalAdicionarLivro.vue';
+import ModalAdicionarEditarLivro from '@/components/Modals/ModalAdicionarEditarLivro.vue';
+import ModalExclusao from '@/components/Modals/ModalExclusao.vue';
 
 export default {
-  components: {ModalAdicionarLivro},
+  components: {ModalAdicionarEditarLivro, ModalExclusao},
   data() {
     return { 
       modalAdicionar: false,
+      modalEditar: false,
+      modalExcluir: false,
       livro: {
         nome: '',
         autor: '',
@@ -73,8 +78,22 @@ export default {
     }
   },
   methods: {
-    fecharModal(event) {
+    fecharModalAdicionarEditar(event) {
       this.modalAdicionar = event;
+      this.modalEditar = event;
+      this.modalExcluir = event;
+    },
+    async criarLivro(event) {
+      try {
+        // let response = await fetch('http://localhost:3000/adicionar-livro', {
+        //   method: 'POST',
+        //   body: JSON.stringify(event)
+        // })
+        let response = await fetch('http://localhost:3000/livros');
+        console.log(response.body);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
   }
