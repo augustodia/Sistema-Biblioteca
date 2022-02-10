@@ -1,7 +1,12 @@
 import { Router } from "express";
+import * as UsuarioController from '../controllers/UsuarioController'
 
 const router = Router()
 
-//aqui será feito as rotas
+//listar livros
+router.get('/livros', UsuarioController.listarLivros)
+
+//novo livro
+router.post('/adicionar-livro', UsuarioController.adicionarLivro)
 
 export default router
