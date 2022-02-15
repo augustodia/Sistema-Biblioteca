@@ -3,13 +3,15 @@ import { Livro } from '../models/Livro'
 
 //adicionando novo livro
 export const adicionarLivro = async (req: Request, res: Response) => {
-  const novoLivro = await Livro.create(req.body)
-  res.status(201).json(novoLivro)
+  console.log(req)
+  // const novoLivro = await Livro.create(req.body)
+  // res.status(201).json(novoLivro)
 }
 
 //listando todos os livros
 export const listarLivros = async (req: Request, res: Response) => {
   let livros = await Livro.findAll()
+  console.log(livros)
   res.json(livros)
 }
 

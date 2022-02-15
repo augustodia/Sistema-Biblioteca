@@ -63,7 +63,7 @@ export default {
       },
       tituloModal: {
         type: String
-      }
+      },
   },
   methods: {
     salvar() {
