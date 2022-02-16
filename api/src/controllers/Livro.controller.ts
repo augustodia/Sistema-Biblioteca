@@ -3,9 +3,8 @@ import { Livro } from '../models/Livro'
 
 //adicionando novo livro
 export const adicionarLivro = async (req: Request, res: Response) => {
-  console.log(req)
-  // const novoLivro = await Livro.create(req.body)
-  // res.status(201).json(novoLivro)
+  const novoLivro = await Livro.create(req.body)
+  res.status(201).json(novoLivro)
 }
 
 //listando todos os livros
@@ -39,7 +38,7 @@ export const editarLivro = async (req: Request, res: Response) => {
     livro.quantidade = quantidade
     await livro.save()
 
-    res.json({livro})
+    res.json(livro)
   } else {
     res.json({error: 'Livro não encontrado'})
   }
@@ -47,6 +46,11 @@ export const editarLivro = async (req: Request, res: Response) => {
 
 //excluir um livro (perdido ou estragado)
 export const excluirLivro = async (req: Request, res: Response) => {
-  let livro = await Livro.findByPk(req.params.id)
-  livro ? livro.destroy() : ''
+  // let livro = await Livro.findByPk(req.params.id)
+  let response = await Livro.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  res.json(response)
 }

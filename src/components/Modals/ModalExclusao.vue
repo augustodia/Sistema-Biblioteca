@@ -14,7 +14,7 @@
       <CButton color="secondary" @click="() => { $emit('fecharModal', false) }">
         Cancelar
       </CButton>
-      <CButton color="primary">Salvar</CButton>
+      <CButton color="primary" @click="excluirItem">Excluir</CButton>
     </CModalFooter>
   </CModal>
 </template>
@@ -31,9 +31,19 @@
       }
     },
     props: {
-    abrirModal: {
-      type: Boolean
+      abrirModal: {
+        type: Boolean
+      },
+      idExclusao: {
+        type: Number
+      }
     },
+    methods: {
+      async excluirItem() {
+        // console.log(this.idExclusao)
+        await fetch(`http://localhost:4000/livro/${this.idExclusao}`, {method: 'DELETE'});
+        this.$emit('fecharModal', true);
+      }
     }
   }
 </script>

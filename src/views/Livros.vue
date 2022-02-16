@@ -22,7 +22,7 @@
                 <CTableDataCell>{{livro.ano}}</CTableDataCell>
                 <CTableDataCell>
                   <CButton component="a" color="secondary" role="button" class="m-1" @click="abrirModalEditar(livro.id)">Editar</CButton>
-                  <CButton component="a" color="danger" role="button" @click="() => { modalExcluir = true }">Excluir</CButton>
+                  <CButton component="a" color="danger" role="button" @click="() => { this.modalExcluir = true; idLivro = livro.id}">Excluir</CButton>
                 </CTableDataCell>
               </CTableRow>
             </CTableBody>
@@ -33,8 +33,9 @@
     <!-- MODAL ADICIONAR -->
     <ModalAdicionarEditarLivro :tituloModal="'Adicionar Livro'" :dadosInputs="livro" :abrirModal="modalAdicionar" @fecharModal="fecharModalAdicionarEditar" @salvar="criarLivro"/>
     <!-- MODAL EDITAR -->
-    <ModalAdicionarEditarLivro :tituloModal="'Editar Livro'" :dadosInputs="livro" :abrirModal="modalEditar" @fecharModal="fecharModalAdicionarEditar"/>
-    <ModalExclusao :tituloModal="'Editar Livro'" :abrirModal="modalExcluir" @fecharModal="fecharModalAdicionarEditar"/>
+    <ModalAdicionarEditarLivro :tituloModal="'Editar Livro'" :dadosInputs="livro" :abrirModal="modalEditar" @fecharModal="fecharModalAdicionarEditar" @salvar="editarLivro"/>
+    
+    <ModalExclusao :tituloModal="'Editar Livro'" :idExclusao="idLivro" :abrirModal="modalExcluir" @fecharModal="fecharModalExcluir(event)"/>
   </CRow>
 </template>
 
@@ -49,12 +50,13 @@ export default {
       modalAdicionar: false,
       modalEditar: false,
       modalExcluir: false,
+      idLivro: null,
       livro: {
-        nome: '',
-        autor: '',
-        ano: '',
-        localizacao: '',
-        quantidade: 0
+        nome: 'Aaaa',
+        autor: 'aaaa',
+        ano: 2222,
+        localizacao: 1,
+        quantidade: 1
       },
       livros: [
         // ano: undefined,
@@ -71,15 +73,28 @@ export default {
       this.modalAdicionar = event;
       this.modalEditar = event;
       this.modalExcluir = event;
+      this.livro = {
+        id: '',
+        nome: '',
+        autor: '',
+        ano: '',
+        localizacao: '',
+        quantidade: 0
+      }
+    },
+    async fecharModalExcluir(event) {
+      console.log('Entrou')
+      await this.pegarLivros();
+      this.modalExcluir = false;
     },
     async pegarLivros() {
       try {
         // let response = await fetch('http://localhost:4000/livros')
-        await fetch('http://localhost:3000/livros')
+        await fetch('http://localhost:4000/livros')
         .then(response => response.json())
         .then(data => {
           console.log(data)
-          this.livros = data
+          this.livros = JSON.parse(JSON.stringify(data))
         });
         console.log(this.livros);
       } catch (error) {
@@ -91,24 +106,47 @@ export default {
       this.modalEditar = true;
     },
     abrirModalAdicionar() {  
-      this.livro = {
-        nome: '',
-        autor: '',
-        ano: '',
-        localizacao: '',
-        quantidade: 0
-      }
+      // this.livro = {
+      //   nome: '',
+      //   autor: '',
+      //   ano: '',
+      //   localizacao: '',
+      //   quantidade: 0
+      // }
       this.modalAdicionar = true;
     },
-    async criarLivro(event) {
+    async editarLivro(event) {
+      event = JSON.parse(JSON.stringify(event))
       try {
-        let response = await fetch('http://localhost:3000/adicionar-livro', {
-          method: 'POST',
+        let response = await fetch(`http://localhost:4000/livro/${event.id}`, {
+          method: 'PUT',
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(event)
         })
-        if(response.status != 200)
+        // if(response.status != 201)
+        //   throw new Error("Houve um erro na criação do Livro, contate o Administrador.")
+        await this.pegarLivros();
+        this.fecharModalAdicionarEditar();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async criarLivro(event) {
+      event = JSON.parse(JSON.stringify(event))
+      try {
+        let response = await fetch('http://localhost:4000/adicionar-livro', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(event)
+        })
+        if(response.status != 201)
           throw new Error("Houve um erro na criação do Livro, contate o Administrador.")
         await this.pegarLivros();
+        this.fecharModalAdicionarEditar();
       } catch (error) {
         console.log(error);
       }
