@@ -1,0 +1,25 @@
+***************** Usuarios *****************
+
+id               - integer, autoincrement, PK,
+nome             - varchar 255
+cpf              - varchar 255
+rua              - char 4
+numero           - integer
+cidade           - integer
+uf               - varchar 255
+cep              - varchar 255
+telefone         - varchar 255
+
+------------------------------------------------
+
+POST      /usuarios        - novo usuario
+
+GET       /usuarios        - lista de usuarios
+
+GET       /usuarios/:id    - usuarios
+
+PUT       /usuarios/:id    - editar usuarios
+
+DELETE    /usuarios/:id    - excluir usuarios
+
+------------------------------------------------
