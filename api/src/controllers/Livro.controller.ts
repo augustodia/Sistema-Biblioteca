@@ -10,7 +10,7 @@ export const adicionarLivro = async (req: Request, res: Response) => {
 //listando todos os livros
 export const listarLivros = async (req: Request, res: Response) => {
   let livros = await Livro.findAll()
-  console.log(livros)
+  // console.log(livros)
   res.json(livros)
 }
 

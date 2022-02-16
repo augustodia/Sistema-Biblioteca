@@ -83,7 +83,7 @@ export default {
       }
     },
     async fecharModalExcluir(event) {
-      console.log('Entrou')
+      // console.log('Entrou')
       await this.pegarLivros();
       this.modalExcluir = false;
     },
@@ -93,10 +93,10 @@ export default {
         await fetch('http://localhost:4000/livros')
         .then(response => response.json())
         .then(data => {
-          console.log(data)
+          // console.log(data)
           this.livros = JSON.parse(JSON.stringify(data))
         });
-        console.log(this.livros);
+        // console.log(this.livros);
       } catch (error) {
         console.log(error);
       }
