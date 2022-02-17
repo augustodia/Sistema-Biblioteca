@@ -3,9 +3,9 @@
 id               - integer, autoincrement, PK,
 nome             - varchar 255
 cpf              - varchar 255
-rua              - char 4
+rua              - varchar 255
 numero           - integer
-cidade           - integer
+cidade           - varchar 255
 uf               - varchar 255
 cep              - varchar 255
 telefone         - varchar 255
@@ -16,10 +16,10 @@ POST      /usuarios        - novo usuario
 
 GET       /usuarios        - lista de usuarios
 
-GET       /usuarios/:id    - usuarios
+GET       /usuario/:id     - usuario específico
 
-PUT       /usuarios/:id    - editar usuarios
+PUT       /usuario/:id     - editar usuario
 
-DELETE    /usuarios/:id    - excluir usuarios
+DELETE    /usuario/:id    - excluir usuario
 
 ------------------------------------------------

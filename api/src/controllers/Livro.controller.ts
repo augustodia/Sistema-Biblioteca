@@ -11,16 +11,16 @@ export const adicionarLivro = async (req: Request, res: Response) => {
 export const listarLivros = async (req: Request, res: Response) => {
   let livros = await Livro.findAll()
   // console.log(livros)
-  res.json(livros)
+  res.status(200).json(livros)
 }
 
 //lista um livro específico
 export const listarLivro = async (req: Request, res: Response) => {
   let livro = await Livro.findByPk(req.params.id)
   if(livro) {
-    res.json({livro})
+    res.status(200).json({livro})
   } else {
-    res.json({error: 'Livro não encontrado'})
+    res.status(404).json({error: 'Livro não encontrado'})
   }
 }
 
@@ -38,9 +38,9 @@ export const editarLivro = async (req: Request, res: Response) => {
     livro.quantidade = quantidade
     await livro.save()
 
-    res.json(livro)
+    res.status(201).json(livro)
   } else {
-    res.json({error: 'Livro não encontrado'})
+    res.status(404).json({error: 'Livro não encontrado'})
   }
 }
 
@@ -52,5 +52,5 @@ export const excluirLivro = async (req: Request, res: Response) => {
       id: req.params.id
     }
   })
-  res.json(response)
+  res.status(204).json(response)
 }
