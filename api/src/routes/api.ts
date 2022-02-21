@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as LivroController from '../controllers/Livro.controller'
 import * as UsuarioController from '../controllers/Usuario.controller'
+import * as EmprestimoController from '../controllers/Emprestimo.controller'
 
 const router = Router()
 
@@ -36,6 +37,23 @@ router.put('/usuario/:id', UsuarioController.editarUsuario)
 
 //editar um usuarios
 router.delete('/usuario/:id', UsuarioController.excluirUsuario)
+
+/*--------------------------- Empréstimos -----------------------------*/
+
+//novo usuario
+router.post('/adicionar-emprestimo', EmprestimoController.adicionarEmprestimo)
+
+//listar emprestimos
+router.get('/emprestimos', EmprestimoController.listarEmprestimos)
+
+//pegar emprestimos especifico
+router.get('/emprestimo/:id', EmprestimoController.listarEmprestimo)
+
+//editar um emprestimos
+router.put('/emprestimo/:id', EmprestimoController.editarEmprestimo)
+
+//editar um emprestimos
+router.delete('/emprestimo/:id', EmprestimoController.excluirEmprestimo)
 
 
 export default router
