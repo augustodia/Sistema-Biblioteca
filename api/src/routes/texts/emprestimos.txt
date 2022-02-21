@@ -1,0 +1,21 @@
+***************** Emprestimos *****************
+
+id               - integer, autoincrement, PK,
+idUsuario        - integer
+idLivro          - integer
+createdAt        - timestamp
+updatedAt        - timestamp
+
+------------------------------------------------
+
+POST      /emprestimos        - novo emprestimo
+
+GET       /emprestimos        - lista de emprestimo
+
+GET       /emprestimo/:id     - emprestimo específico
+
+PUT       /emprestimo/:id     - editar emprestimo
+
+DELETE    /emprestimo/:id     - excluir emprestimo
+
+------------------------------------------------
